@@ -1,0 +1,2 @@
+The Banking System is a C++ console application developed as part of my internship tasks. It is designed using Object-Oriented Programming principles and includes classes such as Customer, Account, and Transaction.
+The system provides core banking functionalities including account creation, deposits, withdrawals, fund transfers, and transaction history management. This project demonstrates practical implementation of OOP concepts and data management in C++.
