@@ -1,0 +1,1 @@
+This project is a C++ based CGPA Calculator designed to compute semester GPA and cumulative CGPA. It accepts course grades and credit hours as input, calculates total credits and grade points, and displays detailed academic performance. The program demonstrates logical implementation, user input handling, and mathematical computation in C++.
