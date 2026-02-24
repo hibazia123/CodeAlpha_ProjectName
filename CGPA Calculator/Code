@@ -1,0 +1,86 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+// Function to convert grade to grade points
+double getGradePoint(string grade) {
+    if (grade == "A+") return 4.0;
+    else if (grade == "A") return 4.0;
+    else if (grade == "A-") return 3.7;
+    else if (grade == "B+") return 3.3;
+    else if (grade == "B") return 3.0;
+    else if (grade == "B-") return 2.7;
+    else if (grade == "C+") return 2.3;
+    else if (grade == "C") return 2.0;
+    else if (grade == "C-") return 1.7;
+    else if (grade == "D") return 1.0;
+    else return 0.0; // F or invalid grade
+}
+
+int main() {
+
+    int numCourses;
+    cout << "Enter number of courses: ";
+    cin >> numCourses;
+
+    vector<string> courseGrades(numCourses);
+    vector<int> creditHours(numCourses);
+
+    double totalCredits = 0;
+    double totalGradePoints = 0;
+
+    // Input course data
+    for (int i = 0; i < numCourses; i++) {
+        cout << "\nCourse " << i + 1 << endl;
+        cout << "Enter Grade (A+, A, B+, etc): ";
+        cin >> courseGrades[i];
+
+        cout << "Enter Credit Hours: ";
+        cin >> creditHours[i];
+
+        double gradePoint = getGradePoint(courseGrades[i]);
+        totalCredits += creditHours[i];
+        totalGradePoints += gradePoint * creditHours[i];
+    }
+
+    // Calculate GPA
+    double semesterGPA = totalGradePoints / totalCredits;
+
+    cout << "\n------ Course Details ------\n";
+    for (int i = 0; i < numCourses; i++) {
+        cout << "Course " << i + 1
+             << " | Grade: " << courseGrades[i]
+             << " | Credit Hours: " << creditHours[i] << endl;
+    }
+
+    cout << "\nTotal Credit Hours: " << totalCredits << endl;
+    cout << "Total Grade Points: " << totalGradePoints << endl;
+    cout << "Semester GPA: " << semesterGPA << endl;
+
+    // CGPA calculation
+    int totalSemesters;
+    double previousCGPA, previousCredits;
+
+    cout << "\nEnter previous completed semesters: ";
+    cin >> totalSemesters;
+
+    if (totalSemesters > 0) {
+        cout << "Enter previous CGPA: ";
+        cin >> previousCGPA;
+
+        cout << "Enter total previous credit hours: ";
+        cin >> previousCredits;
+
+        double overallCGPA =
+            ((previousCGPA * previousCredits) + totalGradePoints) /
+            (previousCredits + totalCredits);
+
+        cout << "\nOverall CGPA: " << overallCGPA << endl;
+    }
+    else {
+        cout << "\nOverall CGPA: " << semesterGPA << endl;
+    }
+
+    return 0;
+}
