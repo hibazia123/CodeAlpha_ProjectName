@@ -1,6 +1,6 @@
 # Code Alpha Internship
 
-This repository contains the tasks assigned to me during my internship at Code Alpha.
+A collection of projects and assignments completed as part of my Code Alpha internship.
 
 ## Technologies Used
 - C++
