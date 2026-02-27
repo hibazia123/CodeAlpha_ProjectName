@@ -1,0 +1,113 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+// Color Codes
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define CYAN    "\033[36m"
+
+void drawLine() {
+    cout << CYAN << "\n========================================\n" << RESET;
+}
+
+bool userExists(string username) {
+    ifstream file("users.txt");
+    string u, p;
+
+    while (file >> u >> p) {
+        if (u == username) {
+            file.close();
+            return true;
+        }
+    }
+    file.close();
+    return false;
+}
+
+void registerUser() {
+    string username, password;
+
+    drawLine();
+    cout << YELLOW << "        USER REGISTRATION\n" << RESET;
+    drawLine();
+
+    cout << BLUE << "Enter Username: " << RESET;
+    cin >> username;
+
+    if (userExists(username)) {
+        cout << RED << "\n❌ Username already exists!\n" << RESET;
+        return;
+    }
+
+    cout << BLUE << "Enter Password: " << RESET;
+    cin >> password;
+
+    ofstream file("users.txt", ios::app);
+    file << username << " " << password << endl;
+    file.close();
+
+    cout << GREEN << "\n✅ Registration Successful!\n" << RESET;
+}
+
+void loginUser() {
+    string username, password;
+    string u, p;
+    bool found = false;
+
+    drawLine();
+    cout << YELLOW << "            USER LOGIN\n" << RESET;
+    drawLine();
+
+    cout << BLUE << "Enter Username: " << RESET;
+    cin >> username;
+    cout << BLUE << "Enter Password: " << RESET;
+    cin >> password;
+
+    ifstream file("users.txt");
+
+    while (file >> u >> p) {
+        if (u == username && p == password) {
+            found = true;
+            break;
+        }
+    }
+    file.close();
+
+    if (found)
+        cout << GREEN << "\n✅ Login Successful! Welcome, " << username << "!\n" << RESET;
+    else
+        cout << RED << "\n❌ Invalid Username or Password!\n" << RESET;
+}
+
+int main() {
+    int choice;
+
+    do {
+        drawLine();
+        cout << CYAN << "   LOGIN & REGISTRATION SYSTEM\n" << RESET;
+        drawLine();
+
+        cout << YELLOW << "1. Register\n";
+        cout << "2. Login\n";
+        cout << "3. Exit\n" << RESET;
+
+        cout << BLUE << "\nEnter choice: " << RESET;
+        cin >> choice;
+
+        switch (choice) {
+            case 1: registerUser(); break;
+            case 2: loginUser(); break;
+            case 3: cout << GREEN << "\nExiting System...\n" << RESET; break;
+            default: cout << RED << "\nInvalid choice!\n" << RESET;
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
